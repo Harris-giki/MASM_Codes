@@ -27,3 +27,4 @@ atozloop:
     ;Exit the program
     mov ah, 04ch
     int 21h
+end main
