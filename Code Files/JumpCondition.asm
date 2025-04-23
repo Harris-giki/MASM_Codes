@@ -53,4 +53,4 @@ label1:
     ; Exit program
     mov ah, 4Ch
     int 21h
-end maingu
+end main
