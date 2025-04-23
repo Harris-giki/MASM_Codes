@@ -1,21 +1,18 @@
-.model small  ;tells the assembles that we are using small memory model
-.stack 100h   ;allocates a stack segment of 256 bytes
-.data         ;denotes the starting of a data segment, we could declare variables or messages here
-.code         ;denotes the starting of the code segment for our instruction part
-    mov ax,@ data ;load the address of the data segment into the register AX
-    mov ds,ax     ;set the DS register to point to your data segment
+.model small          ; Use the small memory model (64KB code + 64KB data)
+.stack 100h           ; Set up a stack size of 256 bytes
+.data                 ; Begin data segment (none declared here)
 
-    mov bl, 2     ;move the number 2 into register BL
-    mov cl, 2     ;move the number 2 into register CL
-    add bl, cl    ;add the values of both of the registers and save it in the BL register
+.code                 ; Begin code segment
+    mov bl, 3         ; Store 3 in register BL
+    sub bl, 2         ; Subtract 2 from BL → BL now holds 1
 
-    add bl, 48   ;add 48 to the number stored in the BL register, a common trick to convert a number into its ASCII Code
-    mov dl, bl   ;copy the values of BL into the DL register
+    add bl, 48        ; Convert numeric 1 to ASCII ('1' = 49) → BL = 49
+    mov dl, bl        ; Move the result to DL (for printing)
     
-    
-    mov ah, 09h  ;this is for DOS interrupt 21h, function 09h is used to print a string 
-    int 21h
+    mov ah, 02h       ; Function 02h of INT 21h: display character in DL
+    int 21h           ; Call DOS interrupt to print the character
 
-    mov ah, 04ch ;this is DOS interrupt, function to terminate the program
-    int 21h
-end
+    mov ah, 4Ch       ; Function 4Ch of INT 21h: terminate program
+    int 21h           ; Call DOS to exit the program
+
+end                   ; End of program
